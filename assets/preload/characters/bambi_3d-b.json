@@ -1,0 +1,78 @@
+{
+	"animations": [
+		{
+			"offsets": [
+				1,
+				2
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singDOWN",
+			"indices": [],
+			"name": "DaveAngry Sing Note DOWN"
+		},
+		{
+			"offsets": [
+				-19,
+				-27
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singLEFT",
+			"indices": [],
+			"name": "DaveAngry Sing Note LEFT"
+		},
+		{
+			"offsets": [
+				38,
+				1
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singRIGHT",
+			"indices": [],
+			"name": "DaveAngry Sing Note RIGHT"
+		},
+		{
+			"offsets": [
+				8,
+				-1
+			],
+			"loop": false,
+			"fps": 24,
+			"anim": "singUP",
+			"indices": [],
+			"name": "DaveAngry Sing Note UP"
+		},
+		{
+			"offsets": [
+				0,
+				-50
+			],
+			"indices": [],
+			"fps": 24,
+			"anim": "idle",
+			"loop": false,
+			"name": "DaveAngry idle dance"
+		}
+	],
+	"no_antialiasing": false,
+	"image": "characters/bambi_3d",
+	"position": [
+		-170,
+		-320
+	],
+	"healthicon": "bambi_3d",
+	"flip_x": false,
+	"healthbar_colors": [
+		255,
+		140,
+		60
+	],
+	"camera_position": [
+		0,
+		0
+	],
+	"sing_duration": 6.1,
+	"scale": 1
+}
