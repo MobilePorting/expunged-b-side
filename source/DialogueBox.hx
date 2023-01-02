@@ -1,7 +1,7 @@
 package;
 
 import flixel.math.FlxPoint;
-#if windows
+#if SHADERS_ALLOWED
 import openfl.display.Shader;
 #end
 import flixel.tweens.FlxTween;
@@ -53,7 +53,7 @@ class DialogueBox extends FlxSpriteGroup
 
 	var debug:Bool = false;
 
-	#if windows
+	#if SHADERS_ALLOWED
 	var curshader:Dynamic;
 	#end
 
@@ -275,7 +275,7 @@ class DialogueBox extends FlxSpriteGroup
 
 	override function update(elapsed:Float)
 	{
-		#if windows
+		#if SHADERS_ALLOWED
 		if (curshader != null)
 		{
 			curshader.shader.uTime.value[0] += elapsed;
@@ -378,7 +378,7 @@ class DialogueBox extends FlxSpriteGroup
 		// swagDialogue.text = ;
 		swagDialogue.resetText(dialogueList[0]);
 		swagDialogue.start(0.04, true);
-		#if windows
+		#if SHADERS_ALLOWED
 		curshader = null;
 		#end
 		if (curCharacter != 'generic')
