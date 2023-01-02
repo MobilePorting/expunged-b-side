@@ -6,7 +6,7 @@ import Discord.DiscordClient;
 import Section.SwagSection;
 import Song.SwagSong;
 import WiggleEffect.WiggleEffectType;
-#if windows
+#if SHADERS_ALLOWED
 import Shaders.PulseEffect;
 #end
 import flixel.FlxBasic;
@@ -44,7 +44,7 @@ import lime.utils.Assets;
 import openfl.Lib;
 import openfl.display.BlendMode;
 import openfl.display.StageQuality;
-#if windows
+#if SHADERS_ALLOWED
 import openfl.filters.ShaderFilter;
 #end
 import openfl.utils.Assets as OpenFlAssets;
@@ -129,7 +129,7 @@ class PlayState extends MusicBeatState
 	public static var storyDifficulty:Int = 1;
 
 	public var curbg:FlxSprite;
-	#if windows
+	#if SHADERS_ALLOWED
 	public var screenshader:Shaders.PulseEffect = new PulseEffect();
 	#end
 	public var UsingNewCam:Bool = false;
@@ -529,7 +529,7 @@ class PlayState extends MusicBeatState
 			insanityRed.visible = false;
 			add(insanityRed);
 
-			#if windows
+			#if SHADERS_ALLOWED
 			var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 			testshader.waveAmplitude = 0.1;
 			testshader.waveFrequency = 5;
@@ -597,7 +597,7 @@ class PlayState extends MusicBeatState
 					bg.active = true;
 					bg.visible = false;
 					add(bg);
-					#if windows
+					#if SHADERS_ALLOWED
 					// below code assumes shaders are always enabled which is bad
 					var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 					testshader.waveAmplitude = 0.1;
@@ -642,7 +642,7 @@ class PlayState extends MusicBeatState
 
 				add(redSky);
 
-				#if windows
+				#if SHADERS_ALLOWED
 				// below code assumes shaders are always enabled which is bad
 				var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 				testshader.waveAmplitude = 0.1;
@@ -687,7 +687,7 @@ class PlayState extends MusicBeatState
 				bg.active = true;
 
 				add(bg);
-				#if windows
+				#if SHADERS_ALLOWED
 				// below code assumes shaders are always enabled which is bad
 				var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 				testshader.waveAmplitude = 0.1;
@@ -711,7 +711,7 @@ class PlayState extends MusicBeatState
 				bg.active = true;
 
 				add(bg);
-				#if windows
+				#if SHADERS_ALLOWED
 				// below code assumes shaders are always enabled which is bad
 				var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 				testshader.waveAmplitude = 0.1;
@@ -734,7 +734,7 @@ class PlayState extends MusicBeatState
 				bg.active = true;
 
 				add(bg);
-				#if windows
+				#if SHADERS_ALLOWED
 				// below code assumes shaders are always enabled which is bad
 				var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 				testshader.waveAmplitude = 0.1;
@@ -757,7 +757,7 @@ class PlayState extends MusicBeatState
 				bg.active = true;
 	
 				add(bg);
-				#if windows
+				#if SHADERS_ALLOWED
 				// below code assumes shaders are always enabled which is bad
 				var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 				testshader.waveAmplitude = 0.1;
@@ -797,7 +797,7 @@ class PlayState extends MusicBeatState
 				add(bgshit2);
 
 				/*add(bg);
-				#if windows
+				#if SHADERS_ALLOWED
 				// below code assumes shaders are always enabled which is bad
 				var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 				testshader.waveAmplitude = 0.1;
@@ -818,7 +818,7 @@ class PlayState extends MusicBeatState
 				bg.active = true;
 
 				add(bg);
-				#if windows
+				#if SHADERS_ALLOWED
 				// below code assumes shaders are always enabled which is bad
 				var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 				testshader.waveAmplitude = 0.1;
@@ -848,7 +848,7 @@ class PlayState extends MusicBeatState
 				bg.active = true;
 
 				add(bg);
-				#if windows
+				#if SHADERS_ALLOWED
 				// below code assumes shaders are always enabled which is bad
 				var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 				testshader.waveAmplitude = 0.1;
@@ -868,7 +868,7 @@ class PlayState extends MusicBeatState
 				bg.active = true;
 
 				add(bg);
-				#if windows
+				#if SHADERS_ALLOWED
 				// below code assumes shaders are always enabled which is bad
 				var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 				testshader.waveAmplitude = 0.1;
@@ -889,7 +889,7 @@ class PlayState extends MusicBeatState
 				bg.active = true;
 				add(bg);
 				
-				#if windows
+				#if SHADERS_ALLOWED
 				// below code assumes shaders are always enabled which is bad
 				var testshader:Shaders.GlitchEffect = new Shaders.GlitchEffect();
 				testshader.waveAmplitude = 0.1;
@@ -1462,7 +1462,7 @@ class PlayState extends MusicBeatState
 		blammedLightsBlack.alpha = 0.0;
 		#end
 
-		#if windows
+		#if SHADERS_ALLOWED
 		screenshader.waveAmplitude = 1;
         screenshader.waveFrequency = 2;
         screenshader.waveSpeed = 1;
@@ -2797,7 +2797,7 @@ class PlayState extends MusicBeatState
 	override public function update(elapsed:Float)
 	{
 	elapsedtime += elapsed;
-	#if windows
+	#if SHADERS_ALLOWED
 	if (curbg != null)
 	{
 		if (curbg.active) // only the furiosity background is active
@@ -2993,7 +2993,7 @@ class PlayState extends MusicBeatState
 				});
 	    	}
 
-		#if windows
+		#if SHADERS_ALLOWED
 		FlxG.camera.setFilters([new ShaderFilter(screenshader.shader)]); // this is very stupid but doesn't effect memory all that much so
 		#end
 		if (shakeCam && eyesoreson)
@@ -3005,7 +3005,7 @@ class PlayState extends MusicBeatState
 		{
 			FlxG.camera.shake(0.015, 0.015);
 		}
-		#if windows
+		#if SHADERS_ALLOWED
 		screenshader.shader.uTime.value[0] += elapsed;
 		if (shakeCam && eyesoreson)
 		{
@@ -3445,7 +3445,7 @@ class PlayState extends MusicBeatState
 						PlayState.SONG = Song.loadFromJson("cheating-hard", "cheating"); // you dun fucked up
 						FlxG.save.data.cheatingFound = true;
 						shakeCam = false;
-						#if windows
+						#if SHADERS_ALLOWED
 						screenshader.Enabled = false;
 						#end
 						FlxG.switchState(new PlayState());
@@ -3458,7 +3458,7 @@ class PlayState extends MusicBeatState
 						PlayState.SONG = Song.loadFromJson("unfairness-hard", "unfairness"); // you dun fucked up again
 						FlxG.save.data.unfairnessFound = true;
 						shakeCam = false;
-						#if windows
+						#if SHADERS_ALLOWED
 						screenshader.Enabled = false;
 						#end
 						FlxG.switchState(new PlayState());
@@ -3470,21 +3470,21 @@ class PlayState extends MusicBeatState
 						PlayState.SONG = Song.loadFromJson("unfairness-b-hard", "unfairness-b"); // you dun fucked up again
 						FlxG.save.data.unfairnessFound = true;
 						shakeCam = false;
-						#if windows
+						#if SHADERS_ALLOWED
 						screenshader.Enabled = false;
 						#end
 						FlxG.switchState(new PlayState());
 						return;
 					case 'opposition':
 						shakeCam = false;
-						#if windows
+						#if SHADERS_ALLOWED
 						screenshader.Enabled = false;
 						#end
 						FlxG.switchState(new SusState());
 						return;
 					case 'unfairness':
 						shakeCam = false;
-						#if windows
+						#if SHADERS_ALLOWED
 						screenshader.Enabled = false;
 						#end
 						FlxG.switchState(new SusState());
@@ -3498,7 +3498,7 @@ class PlayState extends MusicBeatState
 						cancelFadeTween();
 						CustomFadeTransition.nextCamera = camOther;
 						shakeCam = false;
-						#if windows
+						#if SHADERS_ALLOWED
 						screenshader.Enabled = false;
 						#end
 						MusicBeatState.switchState(new ChartingState());
@@ -4097,7 +4097,7 @@ class PlayState extends MusicBeatState
 				vocals.stop();
 				FlxG.sound.music.stop();
 
-				#if windows
+				#if SHADERS_ALLOWED
 				if (curSong.toLowerCase() == 'furiosity')
                     {
                         screenshader.shader.uampmul.value[0] = 0;
@@ -4799,7 +4799,7 @@ class PlayState extends MusicBeatState
 					PlayState.SONG = Song.loadFromJson("opposition-hard", "opposition"); // fuck you lmao
 					FlxG.save.data.oppositionFound = true;
 					shakeCam = false;
-					#if windows
+					#if SHADERS_ALLOWED
 					screenshader.Enabled = false;
 					#end
 					FlxG.switchState(new PlayState());
