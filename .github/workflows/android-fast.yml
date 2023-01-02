@@ -32,7 +32,6 @@ jobs:
           haxe-version: 4.2.0
       - name: Install Haxelib
         run: |
-          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 gcc-10 gcc-12-base gcc-12-doc g++-12 libstdc++-12-dev libstdc++-12-doc < /dev/null > /dev/null
           haxelib setup ~/haxelib
           haxelib install lime 7.9.0 --quiet
           haxelib git hxcpp https://github.com/mcagabe19/hxcpp-fastspeed.git
@@ -92,9 +91,8 @@ jobs:
           haxe-version: 4.2.0
       - name: Install Haxelib
         run: |
-          DEBIAN_FRONTEND=noninteractive sudo apt-get install -y -qq -o=Dpkg::Use-Pty=0 gcc-10 gcc-12-base gcc-12-doc g++-12 libstdc++-12-dev libstdc++-12-doc < /dev/null > /dev/null
           haxelib setup ~/haxelib
-          haxelib install lime 7.9.0 --quiet
+          haxelib git lime https://github.com/mcagabe19/lime.git --quiet
           haxelib git hxcpp https://github.com/mcagabe19/hxcpp-fastspeed.git
           haxelib install openfl 9.1.0 --quiet
           haxelib install actuate 1.8.9 --quiet
