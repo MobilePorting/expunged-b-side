@@ -61,7 +61,11 @@ class TitleState extends MusicBeatState
 
 	override public function create():Void
 	{
-		#if (polymod && !html5)
+                #if android
+                FlxG.android.preventDefaultKeys = [BACK];
+                #end
+
+		#if (polymod && !web)
 		if (sys.FileSystem.exists('mods/')) {
 			var folders:Array<String> = [];
 			for (file in sys.FileSystem.readDirectory('mods/')) {
