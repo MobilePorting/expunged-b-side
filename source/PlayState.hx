@@ -1808,6 +1808,10 @@ class PlayState extends MusicBeatState
 		songWatermark.cameras = [camHUD];
 		doof.cameras = [camHUD];
 
+                #if (mobileC || mobileCweb)
+                addMobileControls();
+                #end
+
 		// if (SONG.song == 'South')
 		// FlxG.camera.alpha = 0.7;
 		// UI_camera.zoom = 1;
@@ -2187,6 +2191,10 @@ class PlayState extends MusicBeatState
 			callOnLuas('onStartCountdown', []);
 			return;
 		}
+
+                #if (mobileC || mobileCweb)
+                mobileControls.visible = true;
+                #end
 
 		inCutscene = false;
 		var ret:Dynamic = callOnLuas('onStartCountdown', []);
@@ -4618,6 +4626,10 @@ class PlayState extends MusicBeatState
 	var transitioning = false;
 	public function endSong():Void
 	{
+                #if (mobileC || mobileCweb)
+                mobileControls.visible = true;
+                #end
+
 		//Should kill you if you tried to cheat
 		if(!startingSong) {
 			notes.forEach(function(daNote:Note) {
