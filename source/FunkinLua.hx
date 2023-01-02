@@ -1143,7 +1143,9 @@ class FunkinLua {
 			luaTrace('musicFadeOut is deprecated! Use soundFadeOut instead.', false, true);
 		});
 
+                #if windows
 		Discord.DiscordClient.addLuaCallbacks(lua);
+                #end
 
 		call('onCreate', []);
 		#end
