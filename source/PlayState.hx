@@ -4627,7 +4627,7 @@ class PlayState extends MusicBeatState
 	public function endSong():Void
 	{
                 #if (mobileC || mobileCweb)
-                mobileControls.visible = true;
+                mobileControls.visible = false;
                 #end
 
 		//Should kill you if you tried to cheat
