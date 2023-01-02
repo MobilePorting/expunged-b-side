@@ -22,8 +22,7 @@ import haxe.Log;
 
 using StringTools;
 
-enum StorageType
-{
+enum StorageType {
 	DATA;
 	EXTERNAL_DATA;
         MEDIA;
@@ -34,18 +33,15 @@ enum StorageType
  * @author Mihai Alexandru (M.A. Jigsaw)
  * @modified mcagabe19
  */
-class SUtil
-{
+class SUtil {
 	/**
 	 * This returns the external storage path that the game will use by the type.
 	 */
-	public static function getStorageDirectory(type:StorageType = MEDIA):String
-	{
+	public static function getStorageDirectory(type:StorageType = MEDIA):String {
 		var daPath:String = '';
 
 		#if android
-		switch (type)
-		{
+		switch (type) {
 			case DATA:
 				daPath = Context.getFilesDir() + '/';
 			case EXTERNAL_DATA:
@@ -63,13 +59,10 @@ class SUtil
 	/**
 	 * A simple function that checks for storage permissions and game files/folders.
 	 */
-	public static function checkPermissions():Void
-	{
+	public static function checkPermissions():Void {
 		#if android
-		if (!Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE) && !Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE))
-		{
-			if (VERSION.SDK_INT >= VERSION_CODES.M)
-			{
+		if (!Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE) && !Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE)) {
+			if (VERSION.SDK_INT >= VERSION_CODES.M) {
 				Permissions.requestPermissions([Permissions.WRITE_EXTERNAL_STORAGE, Permissions.READ_EXTERNAL_STORAGE]);
 				/**
 				 * Basically for now i can't force the app to stop while its requesting a android permission, so this makes the app to stop while its requesting the specific permission
@@ -81,11 +74,8 @@ class SUtil
 			}
 		}
 
-		if (Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE)
-			&& Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE))
-		{
-				if (!FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
-				{
+		if (Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE) && Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE)) {
+				if (!FileSystem.exists(SUtil.getStorageDirectory() + 'mods')) {
 					Lib.application.window.alert("Whoops, seems like you didn't extract the assets/mods folder from the .APK!\nPlease copy the assets/mods folder from the .APK to\n" + SUtil.getStorageDirectory(), 'Error!');
 					LimeSystem.exit(1);
 				} else if (FileSystem.exists(SUtil.getStorageDirectory() + 'mods') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'mods')) {
@@ -103,22 +93,18 @@ class SUtil
 	public static function uncaughtErrorHandler():Void
 	{
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onError);
-		Lib.application.onExit.add(function(exitCode:Int)
-		{
+		Lib.application.onExit.add(function(exitCode:Int) {
 			if (Lib.current.loaderInfo.uncaughtErrorEvents.hasEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR))
 				Lib.current.loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onError);
 		});
 	}
 
-	private static function onError(e:UncaughtErrorEvent):Void
-	{
+	private static function onError(e:UncaughtErrorEvent):Void {
 		var stack:Array<String> = [];
 		stack.push(e.error);
 
-		for (stackItem in CallStack.exceptionStack(true))
-		{
-			switch (stackItem)
-			{
+		for (stackItem in CallStack.exceptionStack(true)) {
+			switch (stackItem) {
 				case CFunction:
 					stack.push('Non-Haxe (C) Function');
 				case Module(m):
@@ -139,8 +125,7 @@ class SUtil
 		final msg:String = stack.join('\n');
 
 		#if sys
-		try
-		{
+		try {
 			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'logs'))
 				FileSystem.createDirectory(SUtil.getStorageDirectory() + 'logs');
 
@@ -168,8 +153,7 @@ class SUtil
 	/**
 	 * This is mostly a fork of https://github.com/openfl/hxp/blob/master/src/hxp/System.hx#L595
 	 */
-	public static function mkDirs(directory:String):Void
-	{
+	public static function mkDirs(directory:String):Void {
 		var total:String = '';
 
 		if (directory.substr(0, 1) == '/')
@@ -220,9 +204,7 @@ class SUtil
 
 				File.saveBytes(savePath, Assets.getBytes(copyPath));
 			}
-		}
-		catch (e:Dynamic)
-		{
+		} catch (e:Dynamic) {
 			#if android
 			Toast.makeText("Error!\nClouldn't copy the file because:\n" + e, Toast.LENGTH_LONG);
 			#else
