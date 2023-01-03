@@ -56,12 +56,13 @@ jobs:
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       - name: Compile
-        run: haxelib run lime build android -${{ matrix.build }} -D no-compilation -D macro-times -D analyzer-optimize -${{ matrix.arch }}
+        run: haxelib run lime build android -${{ matrix.build }} -D no-compilation -D macro-times -D analyzer-optimize -${{ matrix.arch }} ; tree -d
       - name: Publish Artifact
         uses: actions/upload-artifact@main
         with:
           name: build-ubuntu${{ matrix.version }}-${{ matrix.arch }}-${{ matrix.build }}
           path: 'export/${{ matrix.build }}/android/bin/app/build/outputs/apk/${{ matrix.build }}/*.apk'
+          if-no-files-found: error
   build-x86-and-x8664:
     name: Android
     runs-on: ubuntu-${{ matrix.version }}
@@ -115,9 +116,10 @@ jobs:
         env:
           ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
       - name: Compile
-        run: haxelib run lime build android -${{ matrix.build }} -D no-compilation -D macro-times -D analyzer-optimize -${{ matrix.arch }}
+        run: haxelib run lime build android -${{ matrix.build }} -D no-compilation -D macro-times -D analyzer-optimize -${{ matrix.arch }} ; tree -d
       - name: Publish Artifact
         uses: actions/upload-artifact@main
         with:
           name: build-ubuntu${{ matrix.version }}-${{ matrix.arch }}-${{ matrix.build }}
           path: 'export/${{ matrix.build }}/android/bin/app/build/outputs/apk/${{ matrix.build }}/*.apk'
+          if-no-files-found: error
