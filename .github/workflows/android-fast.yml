@@ -121,5 +121,5 @@ jobs:
         uses: actions/upload-artifact@main
         with:
           name: build-ubuntu${{ matrix.version }}-${{ matrix.arch }}-${{ matrix.build }}
-          path: 'export/${{ matrix.build }}/android/bin/app/build/outputs/apk/${{ matrix.build }}/*.apk'
+          path: 'export/${{ matrix.build }}/android/bin/app/build/outputs/apk/debug/*.apk'
           if-no-files-found: error
