@@ -745,9 +745,7 @@ class PreferencesSubstate extends MusicBeatSubstate
 		'Note Delay',
 		'Custom Scroll Speed',
 		'Scroll Speed'
-		#if !mobile
 		,'FPS Counter'
-		#end
 	];
 
 	private var grpOptions:FlxTypedGroup<Alphabet>;
