@@ -22,7 +22,8 @@ import haxe.Log;
 
 using StringTools;
 
-enum StorageType {
+enum StorageType
+{
 	DATA;
 	EXTERNAL_DATA;
         MEDIA;
@@ -33,15 +34,18 @@ enum StorageType {
  * @author Mihai Alexandru (M.A. Jigsaw)
  * @modified mcagabe19
  */
-class SUtil {
+class SUtil
+{
 	/**
 	 * This returns the external storage path that the game will use by the type.
 	 */
-	public static function getStorageDirectory(type:StorageType = MEDIA):String {
+	public static function getStorageDirectory(type:StorageType = EXTERNAL_DATA):String
+	{
 		var daPath:String = '';
 
 		#if android
-		switch (type) {
+		switch (type)
+		{
 			case DATA:
 				daPath = Context.getFilesDir() + '/';
 			case EXTERNAL_DATA:
@@ -59,27 +63,71 @@ class SUtil {
 	/**
 	 * A simple function that checks for storage permissions and game files/folders.
 	 */
-	public static function checkPermissions():Void {
+	public static function checkPermissions():Void
+	{
 		#if android
-		if (!Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE) && !Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE)) {
-			if (VERSION.SDK_INT >= VERSION_CODES.M) {
+		if (!Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE)
+			&& !Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE))
+		{
+			if (VERSION.SDK_INT >= VERSION_CODES.M)
+			{
 				Permissions.requestPermissions([Permissions.WRITE_EXTERNAL_STORAGE, Permissions.READ_EXTERNAL_STORAGE]);
+
 				/**
 				 * Basically for now i can't force the app to stop while its requesting a android permission, so this makes the app to stop while its requesting the specific permission
 				 */
-				Lib.application.window.alert('If you accepted the permissions you are all good!' + "\nIf you didn't then expect a crash" + '\nPress Ok to see what happens', 'Permissions?');
-			} else {
+				Lib.application.window.alert('If you accepted the permissions you are all good!' + "\nIf you didn't then expect a crash"
+					+ '\nPress Ok to see what happens',
+					'Permissions?');
+			}
+			else
+			{
 				Lib.application.window.alert('Please grant the game storage permissions in app settings' + '\nPress Ok to close the app', 'Permissions?');
 				LimeSystem.exit(1);
 			}
 		}
 
-		if (Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE) && Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE)) {
-				if (!FileSystem.exists(SUtil.getStorageDirectory() + 'mods')) {
-					Lib.application.window.alert("Whoops, seems like you didn't extract the assets/mods folder from the .APK!\nPlease copy the assets/mods folder from the .APK to\n" + SUtil.getStorageDirectory(), 'Error!');
+		if (Permissions.getGrantedPermissions().contains(Permissions.WRITE_EXTERNAL_STORAGE)
+			&& Permissions.getGrantedPermissions().contains(Permissions.READ_EXTERNAL_STORAGE))
+		{
+			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
+			{
+				Lib.application.window.alert("Whoops, seems like you didn't extract the files from the .APK!\nPlease copy the files from the .APK to\n" + SUtil.getStorageDirectory(),
+					'Error!');
+				LimeSystem.exit(1);
+			}
+			else if ((FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'assets'))
+				&& (FileSystem.exists(SUtil.getStorageDirectory() + 'mods') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'mods')))
+			{
+				Lib.application.window.alert("Why did you create two files called assets and mods instead of copying the folders from the .APK?, expect a crash.",
+					'Error!');
+				LimeSystem.exit(1);
+			}
+			else
+			{
+				if (!FileSystem.exists(SUtil.getStorageDirectory() + 'assets'))
+				{
+					Lib.application.window.alert("Whoops, seems like you didn't extract the assets/assets folder from the .APK!\nPlease copy the assets/assets folder from the .APK to\n" + SUtil.getStorageDirectory(),
+						'Error!');
 					LimeSystem.exit(1);
-				} else if (FileSystem.exists(SUtil.getStorageDirectory() + 'mods') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'mods')) {
-					Lib.application.window.alert("Why did you create a file called mods instead of copying the mods directory from the .APK?, expect a crash.", 'Error!');
+				}
+				else if (FileSystem.exists(SUtil.getStorageDirectory() + 'assets') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'assets'))
+				{
+					Lib.application.window.alert("Why did you create a file called assets instead of copying the assets directory from the .APK?, expect a crash.",
+						'Error!');
+					LimeSystem.exit(1);
+				}
+
+				if (!FileSystem.exists(SUtil.getStorageDirectory() + 'mods'))
+				{
+					Lib.application.window.alert("Whoops, seems like you didn't extract the assets/mods folder from the .APK!\nPlease copy the assets/mods folder from the .APK to\n" + SUtil.getStorageDirectory(),
+						'Error!');
+					LimeSystem.exit(1);
+				}
+				else if (FileSystem.exists(SUtil.getStorageDirectory() + 'mods') && !FileSystem.isDirectory(SUtil.getStorageDirectory() + 'mods'))
+				{
+					Lib.application.window.alert("Why did you create a file called mods instead of copying the mods directory from the .APK?, expect a crash.",
+						'Error!');
 					LimeSystem.exit(1);
 				}
 			}
@@ -93,18 +141,22 @@ class SUtil {
 	public static function uncaughtErrorHandler():Void
 	{
 		Lib.current.loaderInfo.uncaughtErrorEvents.addEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onError);
-		Lib.application.onExit.add(function(exitCode:Int) {
+		Lib.application.onExit.add(function(exitCode:Int)
+		{
 			if (Lib.current.loaderInfo.uncaughtErrorEvents.hasEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR))
 				Lib.current.loaderInfo.uncaughtErrorEvents.removeEventListener(UncaughtErrorEvent.UNCAUGHT_ERROR, onError);
 		});
 	}
 
-	private static function onError(e:UncaughtErrorEvent):Void {
+	private static function onError(e:UncaughtErrorEvent):Void
+	{
 		var stack:Array<String> = [];
 		stack.push(e.error);
 
-		for (stackItem in CallStack.exceptionStack(true)) {
-			switch (stackItem) {
+		for (stackItem in CallStack.exceptionStack(true))
+		{
+			switch (stackItem)
+			{
 				case CFunction:
 					stack.push('Non-Haxe (C) Function');
 				case Module(m):
@@ -125,7 +177,8 @@ class SUtil {
 		final msg:String = stack.join('\n');
 
 		#if sys
-		try {
+		try
+		{
 			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'logs'))
 				FileSystem.createDirectory(SUtil.getStorageDirectory() + 'logs');
 
@@ -136,7 +189,9 @@ class SUtil {
 				+ Date.now().toString().replace(' ', '-').replace(':', "'")
 				+ '.log',
 				msg + '\n');
-		} catch (e:Dynamic) {
+		}
+		catch (e:Dynamic)
+		{
 			#if android
 			Toast.makeText("Error!\nClouldn't save the crash dump because:\n" + e, Toast.LENGTH_LONG);
 			#else
@@ -153,7 +208,8 @@ class SUtil {
 	/**
 	 * This is mostly a fork of https://github.com/openfl/hxp/blob/master/src/hxp/System.hx#L595
 	 */
-	public static function mkDirs(directory:String):Void {
+	public static function mkDirs(directory:String):Void
+	{
 		var total:String = '';
 
 		if (directory.substr(0, 1) == '/')
@@ -164,8 +220,10 @@ class SUtil {
 		if (parts.length > 0 && parts[0].indexOf(':') > -1)
 			parts.shift();
 
-		for (part in parts) {
-			if (part != '.' && part != '') {
+		for (part in parts)
+		{
+			if (part != '.' && part != '')
+			{
 				if (total != '' && total != '/')
 					total += '/';
 
@@ -178,16 +236,21 @@ class SUtil {
 	}
 
 	#if sys
-	public static function saveContent(fileName:String = 'file', fileExtension:String = '.json', fileData:String = 'you forgot to add something in your code lol'):Void {
-		try {
+	public static function saveContent(fileName:String = 'file', fileExtension:String = '.json',
+			fileData:String = 'you forgot to add something in your code lol'):Void
+	{
+		try
+		{
 			if (!FileSystem.exists(SUtil.getStorageDirectory() + 'saves'))
-                                FileSystem.createDirectory(SUtil.getStorageDirectory() + 'saves');
+				FileSystem.createDirectory(SUtil.getStorageDirectory() + 'saves');
 
 			File.saveContent(SUtil.getStorageDirectory() + 'saves/' + fileName + fileExtension, fileData);
 			#if android
 			Toast.makeText("File Saved Successfully!", Toast.LENGTH_LONG);
 			#end
-		} catch (e:Dynamic) {
+		}
+		catch (e:Dynamic)
+		{
 			#if android
 			Toast.makeText("Error!\nClouldn't save the file because:\n" + e, Toast.LENGTH_LONG);
 			#else
@@ -196,15 +259,20 @@ class SUtil {
 		}
 	}
 
-	public static function copyContent(copyPath:String, savePath:String):Void {
-		try {
-			if (!FileSystem.exists(savePath) && Assets.exists(copyPath)) {
+	public static function copyContent(copyPath:String, savePath:String):Void
+	{
+		try
+		{
+			if (!FileSystem.exists(savePath) && Assets.exists(copyPath))
+			{
 				if (!FileSystem.exists(Path.directory(savePath)))
 					SUtil.mkDirs(Path.directory(savePath));
 
 				File.saveBytes(savePath, Assets.getBytes(copyPath));
 			}
-		} catch (e:Dynamic) {
+		}
+		catch (e:Dynamic)
+		{
 			#if android
 			Toast.makeText("Error!\nClouldn't copy the file because:\n" + e, Toast.LENGTH_LONG);
 			#else
@@ -214,7 +282,8 @@ class SUtil {
 	}
 	#end
 
-	private static function println(msg:String):Void {
+	private static function println(msg:String):Void
+	{
 		#if sys
 		Sys.println(msg);
 		#else
